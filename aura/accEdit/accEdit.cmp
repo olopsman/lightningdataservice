@@ -1,0 +1,31 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId">
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="accountRecord" type="Object" />
+    <aura:attribute name="recordSaveError" type="String" default="" />
+    
+    <force:recordData aura:id="recordEditor"
+                      layoutType="FULL"
+                      recordId="{!v.recordId}"
+                      targetFields="{!v.accountRecord}"
+                      targetError="{!v.recordSaveError}"
+                      fields="Name"
+                      mode="EDIT" 
+                      recordUpdated="{!c.handleRecordUpdated}"/>
+    <!-- display -->
+    <div class="slds-form--stacked">
+    	<div class="slds-form-element">
+            <label class="slds-form-element__label">Edit Account</label>
+            <ui:outputText value="Edit Account" title="Edit Account" />
+        </div>  
+        
+    </div>
+    <!--edit the field edit and save -->
+    <lightning:input aura:id="recordName" name="recordName" label="Account Name" value="{!v.accountRecord.Name}" required="true" />
+    
+    <ui:button label="Save Account" press="{!c.handleSaveRecord}" />
+    
+    <aura:if isTrue="{!not(empty(v.recordSaveError))}">
+        <ui:outputText value="{!v.recordSaveError}"/>
+    </aura:if>
+
+</aura:component>

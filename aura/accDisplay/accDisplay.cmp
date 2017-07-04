@@ -1,0 +1,43 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId">
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="accountRecord" type="Object" />
+    <aura:attribute name="recordError" type="String" />
+    
+    <force:recordData aura:id="recordEditor"
+                      layoutType="FULL"
+                      recordId="{!v.recordId}"
+                      targetError="{!v.recordError}"
+                      targetRecord="{!v.record}"
+                      targetFields="{!v.accountRecord}"
+                      mode="VIEW" />
+    
+    <!-- display -->
+    <div class="slds-form--stacked">
+    	<div class="slds-form-element">       
+            <label class="slds-form-element__label">Name: </label>
+            <ui:outputText value="{!v.accountRecord.Name}"/>
+        </div>
+    	<div class="slds-form-element">
+        	<label class="slds-form-element__label">Industry: </label>
+            <ui:outputText value="{!v.accountRecord.Industry}"/>
+        </div>  
+    	<div class="slds-form-element">
+        	<label class="slds-form-element__label">Description: </label>
+            <ui:outputTextArea value="{!v.accountRecord.Description}"/>
+        </div>   
+    	<div class="slds-form-element">
+        	<label class="slds-form-element__label">Phone: </label>
+            <ui:outputPhone value="{!v.accountRecord.Phone}"/>
+        </div>           
+    </div>
+
+    <!-- Display Lightning Data Service errors, if any -->
+    <aura:if isTrue="{!not(empty(v.recordError))}">
+        <div class="recordError">
+            <ui:message title="Error" severity="error" closable="true">
+                {!v.recordError}
+            </ui:message>
+        </div>
+    </aura:if>    
+	
+</aura:component>
